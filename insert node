@@ -1,0 +1,53 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct TreeNode {
+    int value;
+    struct TreeNode *left;
+    struct TreeNode *right;
+} TreeNode;
+
+TreeNode* createNode(int key) {
+    TreeNode* newNode = (TreeNode*)malloc(sizeof(TreeNode));
+    newNode->value = key;
+    newNode->left = NULL;
+    newNode->right = NULL;
+    return newNode;
+}
+
+TreeNode* insertBST(TreeNode* root, int key) {
+    if (root == NULL) {
+        return createNode(key);
+    }
+    if (key < root->value) {
+        root->left = insertBST(root->left, key);
+    } else {
+        root->right = insertBST(root->right, key);
+    }
+    return root;
+}
+
+void inorderTraversal(TreeNode* root) {
+    if (root != NULL) {
+        inorderTraversal(root->left);
+        printf("%d ", root->value);
+        inorderTraversal(root->right);
+    }
+}
+
+int main() {
+    TreeNode* root = NULL;
+    root = insertBST(root, 50);
+    insertBST(root, 30);
+    insertBST(root, 20);
+    insertBST(root, 40);
+    insertBST(root, 70);
+    insertBST(root, 60);
+    insertBST(root, 80);
+
+    printf("In-order traversal of the BST:\n");
+    inorderTraversal(root);
+    printf("\n");
+
+    return 0;
+}
